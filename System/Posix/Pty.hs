@@ -1,5 +1,6 @@
 {-# LANGUAGE ForeignFunctionInterface #-}
 {-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE TupleSections #-}
 {-# LANGUAGE Trustworthy #-}
 -------------------------------------------------------------------------------
 -- |
@@ -180,7 +181,7 @@ spawnWithPty env' search path' argv' (x, y) = do
     throwCErrorOnMinus1 "unable to fork or open new pty" ptyFd
 
     hnd <- fdToHandle ptyFd
-    ph <- mkProcessHandle (coerce pid) False
+    ph <- mkProcessHandle pid False
     return (Pty ptyFd hnd, ph)
   where
     fuse (key, val) = newCString (key ++ "=" ++ val)
@@ -201,7 +202,7 @@ forkExecWithPty :: Int
                 -> CInt
                 -> [CString]
                 -> [CString]
-                -> IO (Fd, CInt)
+                -> IO (Fd, CPid)
 forkExecWithPty x y path search argv' env' = do
     argv <- newArray0 nullPtr (path:argv')
     env <- case env' of
@@ -212,7 +213,7 @@ forkExecWithPty x y path search argv' env' = do
       result <- fork_exec_with_pty x y search path argv env pid
       free argv >> free env
       pid' <- peek pid
-      return (result, pid')
+      return (result, coerce pid')
 
 byteToControlCode :: Word8 -> [PtyControlCode]
 byteToControlCode i = map snd $ filter ((/=0) . (.&.i) . fst) codeMapping
