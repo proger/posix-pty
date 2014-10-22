@@ -28,6 +28,8 @@ Description:
 
     > ptywrap: usage: ptywrap [command to run]
 
+Extra-Source-Files:   cbits/fork_exec_with_pty.h cbits/pty_size.h
+
 Library
   Default-Language:     Haskell2010
   GHC-Options:          -Wall
@@ -38,7 +40,6 @@ Library
   C-Sources:            cbits/fork_exec_with_pty.c cbits/pty_size.c
   CC-Options:           -Wall -Wextra -pedantic -std=c99
   Include-Dirs:         cbits
-  Includes:             fork_exec_with_pty.h pty_size.h
 
   Build-Depends:        base >= 4.7 && < 5
                ,        bytestring >= 0.10
