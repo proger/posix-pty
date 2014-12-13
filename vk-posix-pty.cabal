@@ -1,8 +1,7 @@
 Name:                vk-posix-pty
-Version:             0.2.0.2
+Version:             0.2.1
 
-Homepage:            https://bitbucket.org/merijnv/posix-pty
-                     https://github.com/proger/posix-pty/tree/fork
+Homepage:            https://github.com/proger/posix-pty/tree/fork
 Bug-Reports:         https://github.com/proger/posix-pty/issues
 
 Author:              Merijn Verstraaten
@@ -59,4 +58,4 @@ Executable ptywrap
 Source-Repository head
   Type:     git
   Location: https://github.com/proger/posix-pty
-  Tag:      fork-0.2
+  Tag:      fork-0.2.1
